@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Gastos e Despesas</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💰 Controle Financeiro</h1>
+            <p>Gerencie seus gastos e despesas de forma inteligente</p>
+        </div>
+
+        <div class="dashboard">
+            <div class="card gastos">
+                <h3>Total de Gastos</h3>
+                <div class="value" id="totalGastos">R$ 0,00</div>
+                <small>Este mês</small>
+            </div>
+            <div class="card despesas">
+                <h3>Total de Despesas</h3>
+                <div class="value" id="totalDespesas">R$ 0,00</div>
+                <small>Este mês</small>
+            </div>
+            <div class="card saldo">
+                <h3>Saldo</h3>
+                <div class="value" id="saldo">R$ 0,00</div>
+                <small>Gastos - Despesas</small>
+            </div>
+            <div class="card disponibilidade">
+    <h3>💵 Disponível para Pagar Dívidas</h3>
+    <div class="value" id="valorDisponivel">R$ 0,00</div>
+    <small>Valor que você pode usar</small>
+</div>
+
+        </div>
+
+        <div class="main-content">
+            <div class="form-section">
+                <h2>📝 Adicionar Registro</h2>
+                <div class="success-message" id="successMessage">
+                    ✅ Registro adicionado com sucesso!
+                </div>
+                <form id="expenseForm">
+                    <div class="form-group">
+    <label for="valorDisponivelInput">Valor Disponível para Pagar Dívidas</label>
+    <input type="number" id="valorDisponivelInput" step="0.01" min="0" placeholder="0,00">
+</div>
+
+                    <div class="form-group">
+                        <label for="data">Data</label>
+                        <input type="date" id="data" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="descricao">Descrição</label>
+                        <input type="text" id="descricao" placeholder="Ex: Almoço no restaurante" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="valor">Valor (R$)</label>
+                        <input type="number" id="valor" step="0.01" min="0.01" placeholder="0,00" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="tipo">Tipo</label>
+                        <select id="tipo" required>
+                            <option value="">Selecione o tipo</option>
+                            <option value="Gasto">Gasto</option>
+                            <option value="Despesa">Despesa</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="categoria">Categoria</label>
+                        <select id="categoria" required>
+                            <option value="">Selecione a categoria</option>
+                            <option value="Alimentação">🍽️ Alimentação</option>
+                            <option value="Transporte">🚗 Transporte</option>
+                            <option value="Lazer">🎮 Lazer</option>
+                            <option value="Saúde">🏥 Saúde</option>
+                            <option value="Educação">📚 Educação</option>
+                            <option value="Outros">📦 Outros</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn">Adicionar Registro</button>
+                </form>
+            </div>
+
+            <div class="chart-section">
+                <h2>📊 Gastos por Categoria</h2>
+                <div class="chart-container">
+                    <canvas id="categoryChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-section">
+            <div class="table-header">
+                <h2>📋 Histórico de Registros</h2>
+                <div class="filter-group">
+                    <input type="month" id="monthFilter" title="Filtrar por mês">
+                    <select id="sortBy">
+                        <option value="data">Ordenar por Data</option>
+                        <option value="valor">Ordenar por Valor</option>
+                        <option value="categoria">Ordenar por Categoria</option>
+                    </select>
+                    <button class="export-btn" onclick="exportToCSV()">📥 Exportar CSV</button>
+                </div>
+            </div>
+            <div class="table-container">
+                <table id="expenseTable">
+                    <thead>
+                        <tr>
+                            <th onclick="sortTable('data')">Data 📅</th>
+                            <th onclick="sortTable('descricao')">Descrição</th>
+                            <th onclick="sortTable('tipo')">Tipo</th>
+                            <th onclick="sortTable('categoria')">Categoria</th>
+                            <th onclick="sortTable('valor')">Valor 💰</th>
+                        </tr>
+                    </thead>
+                    <tbody id="expenseTableBody">
+                        <tr class="empty-state">
+                            <td colspan="5">
+                                <div>
+                                    <div style="font-size: 3rem; margin-bottom: 10px;">📊</div>
+                                    <h3>Nenhum registro encontrado</h3>
+                                    <p>Adicione seu primeiro gasto ou despesa para começar!</p>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+<script src="script.js"></script>
+</body>
+</html>
